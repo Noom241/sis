@@ -10,10 +10,18 @@ import java.math.BigDecimal;
 @Data
 public class Producto {
     @Id
-    private String idProd;
+    @Column(name = "id_prod")
+    private String idProducto;
 
+    @Column(name = "descripcion")
     private String descripcion;
+
+    @Column(name = "costo")
     private BigDecimal costo;
+
+    @Column(name = "precio")
     private BigDecimal precio;
+
+    @Column(name = "cantidad")
     private int cantidad;
 }

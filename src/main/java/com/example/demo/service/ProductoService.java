@@ -9,7 +9,35 @@ import java.util.List;
 
 @Service
 public class ProductoService {
-    @Autowired private ProductoRepository repo;
-    public List<Producto> listar() { return repo.findAll(); }
-    public Producto guardar(Producto p) { return repo.save(p); }
+
+    @Autowired
+    private ProductoRepository productoRepository;
+
+    public List<Producto> listar() {
+        return productoRepository.findAll();
+    }
+
+    public Producto guardar(Producto producto) {
+        String ultimoIdProducto = obtenerUltimoIdProducto();
+        String nuevoIdProducto = generarNuevoIdProducto(ultimoIdProducto);
+        producto.setIdProducto(nuevoIdProducto);
+
+        return productoRepository.save(producto);
+    }
+
+    private String obtenerUltimoIdProducto() {
+        List<String> resultado = productoRepository.obtenerUltimoIdProducto();
+        return resultado.isEmpty() ? null : resultado.get(0);
+    }
+
+    private String generarNuevoIdProducto(String ultimoIdProducto) {
+        if (ultimoIdProducto == null || ultimoIdProducto.isEmpty()) {
+            return "P0001";  // Si no hay productos, iniciar con P00001
+        }
+
+        String numero = ultimoIdProducto.substring(1);  // Quitar la "P"
+        int nuevoNumero = Integer.parseInt(numero) + 1;
+
+        return "P" + String.format("%04d", nuevoNumero);  // Formato P00001
+    }
 }
