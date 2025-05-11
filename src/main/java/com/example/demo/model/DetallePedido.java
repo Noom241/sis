@@ -3,7 +3,6 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
@@ -11,6 +10,7 @@ import java.math.BigDecimal;
 @IdClass(DetallePedidoId.class)
 @Data
 public class DetallePedido {
+
     @Id
     private String idPedido;
 
